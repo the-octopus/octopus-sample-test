@@ -1,0 +1,7 @@
+repl-temp-*
+.vscode
+__pycache__
+Reports
+*code-workspace
+setup.py
+testing.py
