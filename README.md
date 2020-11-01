@@ -47,7 +47,7 @@ Once you have installed the framework to your machine.
   - Importing the **Octopus.OctopusHTMLReport.OctopusReporter** , is enough to start reporting info,pass,fail and error status.
   - Importing the **Octopus.OctopusCore.selenium_extensions** , is enough to start using the custom functions Click, findElementBy, sendKeys, waitUntilDisplay,..etc. 
 
-### Test Project Folder Structure:
+## Test Project Folder Structure:
 
   - It is a **MUST** to, follow the same project structure and name of folders as bellow.
   - It is a **MUST** to,  Do Not change the name and path of **scenarios** folder, it should be  **test / scenarios / testScenarios.py**.
@@ -107,21 +107,21 @@ Once you have installed the framework to your machine.
 
     ```
 
-### How to create a test class ?
+## How to create a test class ?
 
   - Go to the folder **test / pages**.
   - Create a python file example **loginPage.py**.
   - In order to locate an element you have to import.
    ``` 
-   from selenium.webdriver.common.by import By 
+      from selenium.webdriver.common.by import By 
    ```
   - in order to interact with the element you have to import.
     ```
-    from Octopus.OctopusCore.selenium_extensions import (Click, isEnabled, sendKeys,select,multi_select)
+        from Octopus.OctopusCore.selenium_extensions import (Click, isEnabled, sendKeys,select,multi_select)
     ```
   - in order to syncronize the execution according to application reponse you have to import.
     ```
-    from Octopus.OctopusCore.selenium_extensions import (isDisplayed,
+        from Octopus.OctopusCore.selenium_extensions import (isDisplayed,
                                       isEnabled, isSelected, 
                                       waitUntilDisplay, waitUntilExistInDOM,
                                       waitUntilHidden,select,multi_select)
@@ -196,30 +196,30 @@ Once you have installed the framework to your machine.
     ```    
 
   
-### How to create a test method ?
+## How to create a test method ?
   - Test method is a simple blind method that only interact with the application elements by Click(), sendKeys(), ..etc.
   - As we follow the DataDriven approche it is mandatory to pass dictionary data collection to the test method.
   - It is a MUST to use the dict() data collection, becuase it is a Key/Value data collection type.
   - Sample test method for a login test with the dict() data type variable, that i recommend to follow the same.
 
   ```
-    # Test Method
-    def login(self,tdr=dict()):        
-        self.set_userName(tdr["userID"])
-        self.set_password(tdr["Password"])        
-        self.click_submit()
+      # Test Method
+      def login(self,tdr=dict()):        
+          self.set_userName(tdr["userID"])
+          self.set_password(tdr["Password"])        
+          self.click_submit()
   ```
 
-### How to pass the test data to a test method ?
+## How to pass the test data to a test method ?
   - In the framework I follow the **Data Driven** approch, and using the Microsoft excel Sheet as Data source.
   - Each application page/screen should have a separated data sheet in the **ControlFile.xlsx** file.
   - In order to pass test data to a test method, it is MUST to pass variable of type **dict()** to the method.
     ```
-    def login(self,tdr=dict()):
+        def login(self,tdr=dict()):
     ```
   - Use the passed dict() parameter to test mthod, to get the values of the data field by the name of the field as in excel data sheet.
     ```
-    self.set_userName(tdr["userID"])
+        self.set_userName(tdr["userID"])
     ```
   - In the ControlFile.xlsx file, create a data sheet that has a meaningful name as per the application page.
   - Create the sheet and set the first row in the sheet by column names.
@@ -228,7 +228,7 @@ Once you have installed the framework to your machine.
   ![Sample Login Data Sheet](https://the-octopus.github.io/screenShots/login_sheet.png)
 
 
-### How to use the OctopusHTMLReport to report status PASS/FAIL/ERROR/INFO ?
+## How to use the OctopusHTMLReport to report status PASS/FAIL/ERROR/INFO ?
   - The OctopusHTMLReport has a set of functions to report status and statistics about the execution.
   - In order to use the reporting mechanism of the-octopus-test framework.
 
@@ -254,7 +254,7 @@ Once you have installed the framework to your machine.
   ![Sample report](https://the-octopus.github.io/screenShots/report.png)
 
 
-### How to create a test scenario method in **testScenarios.py** ?
+## How to create a test scenario method in **testScenarios.py** ?
   - This Framework is implemented on a configurable / easy to use approach, so alot of things is done behinde the sceen.
   - The step of getting the test data from excel sheet and map it to the test scenario method.
   - The test data that was mapped in the **Driver** data sheet in the **ControlFile.xlsx** is loaded in the framework as dict() data type.
@@ -265,28 +265,28 @@ Once you have installed the framework to your machine.
   - Is a MUST to keep the name of the class as **TestScenarios**.
 
   ```
-    # import the octopus supportive classes
-    # to report a status in the except: block
-    from Octopus.OctopusHTMLReport.OctopusReporter import Reporter
-    
-    #inmport the test method / page class , for exmaple loginPage
-    from test.pages.loginPage import LoginPage
+      # import the octopus supportive classes
+      # to report a status in the except: block
+      from Octopus.OctopusHTMLReport.OctopusReporter import Reporter
+      
+      #inmport the test method / page class , for exmaple loginPage
+      from test.pages.loginPage import LoginPage
 
-    class TestScenarios:          
-        @staticmethod
-        def ValidateLogin(TestDataRow=dict()):
-            try:
-              login_page = LoginPage(Globals.Test.Browser) # initailize object from the class loginPAge by passing the Browser.
-              login_page.login(TestDataRow) # passing the test data that is initialized in framework as per the driver data sheet configurations.
-              login_page.login_error_displayed()
-            except Exception as error:            
-                Reporter.failed("Validate Login Failed for {0}".format(error)) #ValidateLogin
+      class TestScenarios:          
+          @staticmethod
+          def ValidateLogin(TestDataRow=dict()):
+              try:
+                login_page = LoginPage(Globals.Test.Browser) # initailize object from the class loginPAge by passing the Browser.
+                login_page.login(TestDataRow) # passing the test data that is initialized in framework as per the driver data sheet configurations.
+                login_page.login_error_displayed()
+              except Exception as error:            
+                  Reporter.failed("Validate Login Failed for {0}".format(error)) #ValidateLogin
   ```          
            
   ![Sample Driver Sheet Mapping](https://the-octopus.github.io/screenShots/driver_sheet.png)
 
 
-### How to pass the test data to a test scenario method ?
+## How to pass the test data to a test scenario method ?
   - Do the mapping between the test scenario method and the data sheet.
   - Copy the test **scenario method name** and put it in a new row in the **Driver** data sheet in the column **Function_Name**.
   - Put the data sheet name that will be used as source for that scenario in the **Driver** data sheet in the column **TestDataSheetName**.
@@ -296,14 +296,14 @@ Once you have installed the framework to your machine.
   ![Sample Driver Sheet Mapping](https://the-octopus.github.io/screenShots/driver_sheet.png)
 
 
-### How to control the execution of the test scenarios methods from excel sheet **Driver**?
+## How to control the execution of the test scenarios methods from excel sheet **Driver**?
   - In the framework I follow the **KeyWord Driven** approch, and using the Microsoft excel Sheet as KeyWords source.
   - To control the execution flow of the test scenarios , use the **Driver** data sheet in the **ControlFile.xlsx**.
   - implement the driver data sheet by doing the mapping between scenarios test methods name and the data sheet.
   - Control the execution by select the value **Yes** or **No** from the column **Execution_Flag**. 
 
 
-### How to configure the environment settings Browser name, project name, URL from excel sheet **Environment**?
+## How to configure the environment settings Browser name, project name, URL from excel sheet **Environment**?
   - The Framework is implemented as configurable.
   - To configure the environment details please use the **Environment** data sheet in the **ControlFile.xlsx**. 
     - **RunEnvironment** :	WEB / MOBILE
@@ -315,7 +315,7 @@ Once you have installed the framework to your machine.
   ![Sample Driver Sheet Mapping](https://the-octopus.github.io/screenShots/Environment_sheet.png)
 
 
-### How to create a test data sheet for a page in your application, exmaple login page ?
+## How to create a test data sheet for a page in your application, exmaple login page ?
   - Each test method / application page should have a separated data sheet.
   - Dat sheet structure is recommened to be like the bellow screen.
   - first column is the **RowID** of the data rows in the sheet.
@@ -327,7 +327,7 @@ Once you have installed the framework to your machine.
   ![Sample Data Sheet](https://the-octopus.github.io/screenShots/sample_data_sheet.png)
 
 
-### How to manage the login accounts for test data, exmaple selecting a login data for a specified scenario ?
+## How to manage the login accounts for test data, exmaple selecting a login data for a specified scenario ?
   - In order to map a login account to a specific test case / test data row.
   - in the test data sheet make sure to let the second column name is **LoginRow** .
   - put in that column the value of the row number from login sheet.
@@ -335,12 +335,12 @@ Once you have installed the framework to your machine.
   - the **DataManager** class from the **Octopus.OctopusCore.dataManager** contains methods to get data from excel sheet.
 
   ```
-    # import the octopus DataManager class
-    from Octopus.OctopusCore.dataManager import DataManager
-    
-    # define a variable and use the getDictionaryTableFromexcel method to get a dict() data type
-    # the index [0] means get only the first row from the returened set of rows.
-    LoginRow = DataManager.getDictionaryTableFromexcel("select * from ["Login"$] where RowID=" + rowNum )[0] 
+      # import the octopus DataManager class
+      from Octopus.OctopusCore.dataManager import DataManager
+      
+      # define a variable and use the getDictionaryTableFromexcel method to get a dict() data type
+      # the index [0] means get only the first row from the returened set of rows.
+      LoginRow = DataManager.getDictionaryTableFromexcel("select * from ["Login"$] where RowID=" + rowNum )[0] 
   ```
 
 ## How to link the developed test scneario method from the  **testScenarios.py** to the **ControlFile.xlsx**
@@ -370,7 +370,7 @@ I'm using the login page for the [www.codewars.com](https://www.codewars.com/use
     > Resources/ChromeDriver/chromedriver.exe
 
 
-### Running the test:
+## Running the test:
  1. Define the web elements and create the test method as per the loginpage under test/pages/loginPage.py
  2. Make sure to use pass a data collection of type dictionary dict() to the test method.
  3. define a test scenario method as per the ValidateLogin example under test/scenarios/testScenarios.py
