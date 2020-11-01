@@ -1,12 +1,12 @@
 # The-Octopus-Test Sample Test Project.
 
-[The-Octopus-Test] (https://pypi.org/project/the-octopus-test/) is a community driven tool  that is fully featured and that you can get started with in moments.
+- [The-Octopus-Test](https://pypi.org/project/the-octopus-test/) is a community driven tool  that is fully featured and that you can get started with in moments.
 
-My goal is to make test automation easy, robust, independent and featured.
+- My goal is to make test automation easy, robust, independent and featured.
 
-This simple documentation will help you with all the details you need to use **The-Octopus-Test Framework** to create effective test automation.
+- This simple documentation will help you with all the details you need to use **The-Octopus-Test Framework** to create effective test automation.
 
-**The-Octopus-Test Framework** is a Hybrid test automation framework, that combines features of (Modular, Keyword Driven and Data driven).
+- **The-Octopus-Test Framework** is a Hybrid test automation framework, that combines features of (Modular, Keyword Driven and Data driven).
 
 - As of now, I'm using the **Microsoft excel Data Sheet** as a database source for the managment and control of **KeyWords** and **Execution Flow**.
 
@@ -14,34 +14,34 @@ This simple documentation will help you with all the details you need to use **T
 
 ## Basic Concepts :
 
-* Data Driven: 
+* **Data Driven**: 
   - All test data is stored in Microsoft excel Data Sheet.
 
-* Keyword Driven: 
+* **Keyword Driven**: 
   - Function names are stored in Microsoft excel Data Sheet as well some flages to control which function to be executed with which data source.
 
-* Page Object pattern and Page Factory:
+* **Page Object pattern**:
   - All test cases are written under the test/pages folder.
   - Each page/module has a separate file.
   - More details on the [POM ](https://www.guru99.com/page-object-model-pom-page-factory-in-selenium-ultimate-guide.html)
 
-* Common web page interaction methods:
+* **Common web page interaction methods**:
   - Added selenium extensions class to give a custom functions like Click(), sendKeys() , etc... 
 
-* Common Mobile App interaction methods.
+* **Common Mobile App interaction methods**.
   - to be added soon in next releases
 
-* Objects shared repository:
+* **Objects shared repository**:
   - I recommend creating a locatores module that hold individual classes for elements on an individual page to be shared on all pages
 
-* Extent HTML Report template:
+* **Extent HTML Report template**:
   - I used the most professional reporting tool, Extent HTML report as template to generate the test execution report. 
 
 
 
 ## Test Development :
 
-Using  [The-Octopus-Test] (https://pypi.org/project/the-octopus-test/) framework is identical to using a Selenium Webdriver. 
+Using  [The-Octopus-Test](https://pypi.org/project/the-octopus-test/) framework is identical to using a Selenium Webdriver. 
 Once you have installed the framework to your machine.
   - Importing the **Octopus.OctopusCore.driver** in your **main.py** , is enough to run the test.
   - Importing the **Octopus.OctopusHTMLReport.OctopusReporter** , is enough to start reporting info,pass,fail and error status.
@@ -87,10 +87,10 @@ Once you have installed the framework to your machine.
   * **reports** folder :  It is auto created after test run and it contains a subfolders with time stamp for each run that has the **HTMLOctopusReport**.
 
   * **resources** folder :  Contains the test browsers extensions and the test data excel sheet as follow.
-  - **ChromeDriver folder**: it contains the Chrome Driver extension.
-  - **FireFoxriver folder**: it contains the FireFox Driver extension.
-  - **IEdgeDriver folder**: it contains the Edge Driver extension.
-  - **TestData folder**: it contains the test data excel sheet **ControlFile.xlsx**.
+  - **ChromeDriver** folder: it contains the Chrome Driver extension.
+  - **FireFoxriver** folder: it contains the FireFox Driver extension.
+  - **IEdgeDriver** folder: it contains the Edge Driver extension.
+  - **TestData** folder: it contains the test data excel sheet **ControlFile.xlsx**.
 
   * **test** folder : It hold all the testing related classes for individual pages and the test scenarios as well, It contains of 2 sub folders **pages** & **scenarios**.
   - **pages** folder: we are following the POM architicture pattern, so this folder contains a python module / file for each page from the application under test. 
@@ -98,15 +98,14 @@ Once you have installed the framework to your machine.
       be called by the driver module, these methods can combine more than one test method from different modules under the pages class.
 
   * **main .py**: This module is the main entry point for the execution.
+    - In order to run our project from the command line as follow.
+    - open command line.
+    - cd to the folder contains the main .py.
+    - run the command 
+    ```
+    python main.py 
 
-  * In order to run our project from the command line as follow.
-  - open command line.
-  - cd to the folder contains the main .py.
-  - run the command 
-  ```
-  python main.py 
-
-  ```
+    ```
 
 ### How to create a test class ?
 
@@ -133,7 +132,7 @@ Once you have installed the framework to your machine.
     ```
   - Sample test calss for a login page, that i recommend to follow the same.
   
-    .. code-block:: python
+    ```
         from selenium.webdriver.common.by import By
         from Octopus.OctopusHTMLReport.OctopusReporter import Reporter
         from Octopus.OctopusCore.selenium_extensions import (Click, findElementBy, isDisplayed,
@@ -153,13 +152,6 @@ Once you have installed the framework to your machine.
             loginError = (By.XPATH,'//div[contains(@class,"flash-msg error")]')
             submitButton = (By.XPATH,'//button[@type="submit"]')
             lstCountriesLocator = (By.XPATH,'//button[@type="submit"]')
-
-            # http://192.168.45.201:8080/login?from=%2F
-            # userName = (By.ID, 'j_username')
-            # password = (By.NAME,'j_password')
-            # loginError = (By.XPATH,'//div[contains(@class,"alert-danger")]')
-            # submitButton = (By.XPATH,'//input[@type="submit"]')
-            # lstCountriesLocator = (By.XPATH,'//input[@type="submit"]')
 
             # WebElements of the page
             txtUserName=None
@@ -201,7 +193,7 @@ Once you have installed the framework to your machine.
                     # report pass message to the HTMLReport and Console as well
                     Reporter.passed("Login passed")
                     return True
-      
+    ```    
 
   
 ### How to create a test method ?
@@ -210,13 +202,13 @@ Once you have installed the framework to your machine.
   - It is a MUST to use the dict() data collection, becuase it is a Key/Value data collection type.
   - Sample test method for a login test with the dict() data type variable, that i recommend to follow the same.
 
-  .. code-block:: python
-        # Test Method
-        def login(self,tdr=dict()):        
-            self.set_userName(tdr["userID"])
-            self.set_password(tdr["Password"])        
-            self.click_submit()
-
+  ```
+    # Test Method
+    def login(self,tdr=dict()):        
+        self.set_userName(tdr["userID"])
+        self.set_password(tdr["Password"])        
+        self.click_submit()
+  ```
 
 ### How to pass the test data to a test method ?
   - In the framework I follow the **Data Driven** approch, and using the Microsoft excel Sheet as Data source.
@@ -232,6 +224,7 @@ Once you have installed the framework to your machine.
   - In the ControlFile.xlsx file, create a data sheet that has a meaningful name as per the application page.
   - Create the sheet and set the first row in the sheet by column names.
 
+
   ![Sample Login Data Sheet](https://the-octopus.github.io/screenShots/login_sheet.png)
 
 
@@ -239,7 +232,7 @@ Once you have installed the framework to your machine.
   - The OctopusHTMLReport has a set of functions to report status and statistics about the execution.
   - In order to use the reporting mechanism of the-octopus-test framework.
 
-  .. code-block:: python
+  ```
         # import the reporter class
         from Octopus.OctopusHTMLReport.OctopusReporter import Reporter
 
@@ -255,6 +248,8 @@ Once you have installed the framework to your machine.
         # report error step in the report , with screen shot.
         # it is reocmmended to use this method in the except: Block of a Try: Block
         Reporter.error(" details ")
+  ```
+
 
   ![Sample report](https://the-octopus.github.io/screenShots/report.png)
 
@@ -269,24 +264,24 @@ Once you have installed the framework to your machine.
   - Is a MUST to keep scenario method static method **@staticmethod**.
   - Is a MUST to keep the name of the class as **TestScenarios**.
 
-  .. code-block:: python
-        # import the octopus supportive classes
-        # to report a status in the except: block
-        from Octopus.OctopusHTMLReport.OctopusReporter import Reporter
-        
-        #inmport the test method / page class , for exmaple loginPage
-        from test.pages.loginPage import LoginPage
+  ```
+    # import the octopus supportive classes
+    # to report a status in the except: block
+    from Octopus.OctopusHTMLReport.OctopusReporter import Reporter
+    
+    #inmport the test method / page class , for exmaple loginPage
+    from test.pages.loginPage import LoginPage
 
-        class TestScenarios:          
-            @staticmethod
-            def ValidateLogin(TestDataRow=dict()):
-                try:
-                  login_page = LoginPage(Globals.Test.Browser) # initailize object from the class loginPAge by passing the Browser.
-                  login_page.login(TestDataRow) # passing the test data that is initialized in framework as per the driver data sheet configurations.
-                  login_page.login_error_displayed()
-                except Exception as error:            
-                    Reporter.failed("Validate Login Failed for {0}".format(error)) #ValidateLogin
-            
+    class TestScenarios:          
+        @staticmethod
+        def ValidateLogin(TestDataRow=dict()):
+            try:
+              login_page = LoginPage(Globals.Test.Browser) # initailize object from the class loginPAge by passing the Browser.
+              login_page.login(TestDataRow) # passing the test data that is initialized in framework as per the driver data sheet configurations.
+              login_page.login_error_displayed()
+            except Exception as error:            
+                Reporter.failed("Validate Login Failed for {0}".format(error)) #ValidateLogin
+  ```          
            
   ![Sample Driver Sheet Mapping](https://the-octopus.github.io/screenShots/driver_sheet.png)
 
@@ -339,14 +334,14 @@ Once you have installed the framework to your machine.
   - use this value in you code to get the test login data from data sheet as follow.
   - the **DataManager** class from the **Octopus.OctopusCore.dataManager** contains methods to get data from excel sheet.
 
-  .. code-block:: python
-        # import the octopus DataManager class
-        from Octopus.OctopusCore.dataManager import DataManager
-        
-        # define a variable and use the getDictionaryTableFromexcel method to get a dict() data type
-        # the index [0] means get only the first row from the returened set of rows.
-        LoginRow = DataManager.getDictionaryTableFromexcel("select * from ["Login"$] where RowID=" + rowNum )[0] 
-
+  ```
+    # import the octopus DataManager class
+    from Octopus.OctopusCore.dataManager import DataManager
+    
+    # define a variable and use the getDictionaryTableFromexcel method to get a dict() data type
+    # the index [0] means get only the first row from the returened set of rows.
+    LoginRow = DataManager.getDictionaryTableFromexcel("select * from ["Login"$] where RowID=" + rowNum )[0] 
+  ```
 
 ## How to link the developed test scneario method from the  **testScenarios.py** to the **ControlFile.xlsx**
   - first of all We are passing a data collection of type dict() that will provide test data to test methods in **testScenarios.py**.
