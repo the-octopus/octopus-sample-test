@@ -3,5 +3,4 @@ repl-temp-*
 __pycache__
 Reports
 *code-workspace
-setup.py
-testing.py
+Resources/TestData/~$*.xlsx

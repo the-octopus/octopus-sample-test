@@ -1,22 +1,18 @@
-from selenium import webdriver
-from selenium.webdriver.common.by import By
 
+from selenium.webdriver.common.by import By
 from Octopus.OctopusHTMLReport.OctopusReporter import Reporter
 from Octopus.OctopusCore.selenium_extensions import (Click, findElementBy, isDisplayed,
                                      isEnabled, isSelected, sendKeys,
                                      waitUntilDisplay, waitUntilExistInDOM,
                                      waitUntilHidden,select,multi_select)
 
-
 class LoginPage:
-    
-    
     driver = None
-
     def __init__(self,driver):
         self.driver = driver
     
     # https://www.codewars.com/users/sign_in
+    # Locators Variables 
     userName = (By.ID, 'user_email')
     password = (By.ID,'user_password')
     loginError = (By.XPATH,'//div[contains(@class,"flash-msg error")]')
@@ -30,50 +26,47 @@ class LoginPage:
     # submitButton = (By.XPATH,'//input[@type="submit"]')
     # lstCountriesLocator = (By.XPATH,'//input[@type="submit"]')
 
-    userNameElement=None
-    pwordElement=None
-    submitBttn=None
+    # WebElements of the page
+    txtUserName=None
+    txtPassword=None
+    btnSubmit=None
     lstCountries=None
-    notifcationElement=None
-   
+    divNotifcation=None
 
-   # Example to explain how to use the select method
-
-    def select_country(self, strCountry):              
-        # userNameElement = self.driver.find_element(*LoginPage.userName)
-        lstCountries = self.driver.findElementBy(*LoginPage.lstCountriesLocator)
-        lstCountries.select(strCountry)
-        
-   
+    # setter method
     def set_userName(self, _userName):              
-        # userNameElement = self.driver.find_element(*LoginPage.userName)
-        self.userNameElement = self.driver.findElementBy(*LoginPage.userName)
-        self.userNameElement.sendKeys(_userName)
-        
-    
-    
-    def login_error_displayed(self):
-        self.notifcationElement = self.driver.findElementBy(*LoginPage.loginError)
-        
-        if self.notifcationElement.waitUntilDisplay(3):
-            Reporter.failed("Login Failed for error : {0}".format(self.notifcationElement.text))
-            return False
-        elif self.notifcationElement.waitUntilHidden(3):
-            Reporter.passed("Login passed")
-            return True
-    
-    
+        self.txtUserName = self.driver.findElementBy(*LoginPage.userName)
+        self.txtUserName.sendKeys(_userName)        
+
+    # setter method
     def set_password(self, _password):
-        self.pwordElement = self.driver.findElementBy(*LoginPage.password)       
-        self.pwordElement.sendKeys(_password)        
+        self.txtPassword = self.driver.findElementBy(*LoginPage.password)       
+        self.txtPassword.sendKeys(_password)        
         
-        
+    # setter method
     def click_submit(self):
-        self.submitBttn = self.driver.findElementBy(*LoginPage.submitButton)               
-        self.submitBttn.Click()
+        self.btnSubmit = self.driver.findElementBy(*LoginPage.submitButton)               
+        self.btnSubmit.Click()
         
-        
+    # Test Method
     def login(self,tdr=dict()):        
         self.set_userName(tdr["userID"])
         self.set_password(tdr["Password"])        
         self.click_submit()
+
+    # Login Assertion method    
+    def login_error_displayed(self):
+        self.divNotifcation = self.driver.findElementBy(*LoginPage.loginError)
+
+        if self.divNotifcation.waitUntilDisplay(3):
+            # report fail message to the HTMLReport and Console as well
+            Reporter.failed("Login Failed for error : {0}".format(self.divNotifcation.text))
+            Reporter.passed("")
+            Reporter.error("")
+            Reporter.info("")
+            return False
+        elif self.divNotifcation.waitUntilHidden(3):
+            # report pass message to the HTMLReport and Console as well
+            Reporter.passed("Login passed")
+            return True
+    
