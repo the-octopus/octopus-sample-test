@@ -1,5 +1,10 @@
 # The-Octopus-Test Sample Test Project.
 
+
+![Logo](https://the-octopus.github.io/OctopusHTMLReportResources/Logo_large.png)
+
+
+
 - [The-Octopus-Test](https://pypi.org/project/the-octopus-test/) is a community driven tool  that is fully featured and that you can get started with in moments.
 
 - My goal is to make test automation easy, robust, independent and featured.
@@ -29,10 +34,10 @@
   - Added selenium extensions class to give a custom functions like Click(), sendKeys() , etc... 
 
 * **Common Mobile App interaction methods**.
-  - to be added soon in next releases
+  - to be added soon in next releases.
 
 * **Objects shared repository**:
-  - I recommend creating a locatores module that hold individual classes for elements on an individual page to be shared on all pages
+  - I recommend creating a locatores module that hold individual classes for elements on an individual page to be shared on all pages.
 
 * **Extent HTML Report template**:
   - I used the most professional reporting tool, Extent HTML report as template to generate the test execution report. 
@@ -53,7 +58,7 @@ Once you have installed the framework to your machine.
   - It is a **MUST** to,  Do Not change the name and path of **scenarios** folder, it should be  **test / scenarios / testScenarios.py**.
   - It is a **MUST** to,  Do Not change the name and path of **ControlFile.xlsx** folder, it should be  **resourcses / TestData / ControlFile.xlsx**.
 
-  ```
+  ```console
   <Octopus_Sample_Test>
       +--------------------------+
       |                          |
@@ -102,7 +107,7 @@ Once you have installed the framework to your machine.
     - open command line.
     - cd to the folder contains the main .py.
     - run the command 
-    ```
+    ```console
     python main.py 
 
     ```
@@ -112,27 +117,27 @@ Once you have installed the framework to your machine.
   - Go to the folder **test / pages**.
   - Create a python file example **loginPage.py**.
   - In order to locate an element you have to import.
-   ``` 
+   ```python 
       from selenium.webdriver.common.by import By 
    ```
   - in order to interact with the element you have to import.
-    ```
+    ```python
         from Octopus.OctopusCore.selenium_extensions import (Click, isEnabled, sendKeys,select,multi_select)
     ```
   - in order to syncronize the execution according to application reponse you have to import.
-    ```
+    ```python
         from Octopus.OctopusCore.selenium_extensions import (isDisplayed,
                                       isEnabled, isSelected, 
                                       waitUntilDisplay, waitUntilExistInDOM,
                                       waitUntilHidden,select,multi_select)
     ```
   - in order to report the status about test stpes / cases you have to import.
-    ```
+    ```python
     from Octopus.OctopusHTMLReport.OctopusReporter import Reporter
     ```
   - Sample test calss for a login page, that i recommend to follow the same.
   
-    ```
+    ```python
         from selenium.webdriver.common.by import By
         from Octopus.OctopusHTMLReport.OctopusReporter import Reporter
         from Octopus.OctopusCore.selenium_extensions import (Click, findElementBy, isDisplayed,
@@ -170,7 +175,7 @@ Once you have installed the framework to your machine.
                 self.txtPassword = self.driver.findElementBy(*LoginPage.password)       
                 self.txtPassword.sendKeys(_password)        
                 
-            # setter method
+            # click method
             def click_submit(self):
                 self.btnSubmit = self.driver.findElementBy(*LoginPage.submitButton)               
                 self.btnSubmit.Click()
@@ -202,7 +207,7 @@ Once you have installed the framework to your machine.
   - It is a MUST to use the dict() data collection, becuase it is a Key/Value data collection type.
   - Sample test method for a login test with the dict() data type variable, that i recommend to follow the same.
 
-  ```
+  ```python
       # Test Method
       def login(self,tdr=dict()):        
           self.set_userName(tdr["userID"])
@@ -214,11 +219,11 @@ Once you have installed the framework to your machine.
   - In the framework I follow the **Data Driven** approch, and using the Microsoft excel Sheet as Data source.
   - Each application page/screen should have a separated data sheet in the **ControlFile.xlsx** file.
   - In order to pass test data to a test method, it is MUST to pass variable of type **dict()** to the method.
-    ```
+    ```python
         def login(self,tdr=dict()):
     ```
   - Use the passed dict() parameter to test mthod, to get the values of the data field by the name of the field as in excel data sheet.
-    ```
+    ```python
         self.set_userName(tdr["userID"])
     ```
   - In the ControlFile.xlsx file, create a data sheet that has a meaningful name as per the application page.
@@ -232,7 +237,7 @@ Once you have installed the framework to your machine.
   - The OctopusHTMLReport has a set of functions to report status and statistics about the execution.
   - In order to use the reporting mechanism of the-octopus-test framework.
 
-  ```
+  ```python
         # import the reporter class
         from Octopus.OctopusHTMLReport.OctopusReporter import Reporter
 
@@ -264,7 +269,7 @@ Once you have installed the framework to your machine.
   - Is a MUST to keep scenario method static method **@staticmethod**.
   - Is a MUST to keep the name of the class as **TestScenarios**.
 
-  ```
+  ```python
       # import the octopus supportive classes
       # to report a status in the except: block
       from Octopus.OctopusHTMLReport.OctopusReporter import Reporter
@@ -334,7 +339,7 @@ Once you have installed the framework to your machine.
   - use this value in you code to get the test login data from data sheet as follow.
   - the **DataManager** class from the **Octopus.OctopusCore.dataManager** contains methods to get data from excel sheet.
 
-  ```
+  ```python
       # import the octopus DataManager class
       from Octopus.OctopusCore.dataManager import DataManager
       
@@ -355,19 +360,19 @@ I'm using the login page for the [www.codewars.com](https://www.codewars.com/use
 
   - I defined the web elements of the login page in the class **LoginPage**  under file. 
 
-    > test/pages/loginPage.py
+  > test/pages/loginPage.py
 
   - I defined the test scenario method of login page in the class **TestScenarios**  under file.
 
-    > test/scenarios/testScenarios.py
+  > test/scenarios/testScenarios.py
 
   - Test data is defined in the excel sheet under the 
 
-    > Resources/TestData/ControlFile.xlsx
+  > Resources/TestData/ControlFile.xlsx
 
   - Browsers derives is stored under the path 
 
-    > Resources/ChromeDriver/chromedriver.exe
+  > Resources/ChromeDriver/chromedriver.exe
 
 
 ## Running the test:
@@ -380,11 +385,13 @@ I'm using the login page for the [www.codewars.com](https://www.codewars.com/use
  6. Make sure to use the column names in Login sheet to be same names you are using in the data dictionary passed to the test method.
  7. Save all you work.
  8. run the test by using the command.
-    ```
+    
+    ```console
     python main.py 
 
     ```
  9. The system will run the test and generate a HTML report with date and time stamp name as per the bellow example.
+  
   > Reports/Automation_Result_timestamp/Automation_Report_projectName.html
  
 

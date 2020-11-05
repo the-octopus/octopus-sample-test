@@ -47,6 +47,7 @@ class LoginPage:
     def click_submit(self):
         self.btnSubmit = self.driver.findElementBy(*LoginPage.submitButton)               
         self.btnSubmit.Click()
+        return True
         
     # Test Method
     def login(self,tdr=dict()):        
