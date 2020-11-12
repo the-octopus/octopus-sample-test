@@ -61,10 +61,7 @@ class LoginPage:
 
         if self.divNotifcation.waitUntilDisplay(3):
             # report fail message to the HTMLReport and Console as well
-            Reporter.failed("Login Failed for error : {0}".format(self.divNotifcation.text))
-            Reporter.passed("")
-            Reporter.error("")
-            Reporter.info("")
+            Reporter.failed("Login Failed for error : {0}".format(self.divNotifcation.text))            
             return False
         elif self.divNotifcation.waitUntilHidden(3):
             # report pass message to the HTMLReport and Console as well
